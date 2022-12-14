@@ -12,10 +12,10 @@ namespace FrameworkDesign
         void RegisterUtility<T>(T utility) where T : IUtility;
         T GetSystem<T>() where T : class, ISystem;
         T GetModel<T>() where T : class, IModel;
-        T GetUtility<T>() where T : class,IUtility;
+        T GetUtility<T>() where T : class, IUtility;
         void SendCommand<T>() where T : ICommand, new();
         void SendCommand<T>(T command) where T : ICommand;
-
+        TResult SendQuery<TResult>(IQuery<TResult> query);
         void SendEvent<T>() where T : new();
         void SendEvent<T>(T e);
         IUnRegister RegisterEvent<T>(Action<T> onEvent);
@@ -31,7 +31,7 @@ namespace FrameworkDesign
         private List<IModel> mModels = new List<IModel>();
         public static Action<T> OnRegisterPatch = architecture => { };
         private static T mArchitecture = null;
-        public static IArchitecture Interface 
+        public static IArchitecture Interface
         {
             get
             {
@@ -44,7 +44,7 @@ namespace FrameworkDesign
         }
         static void MakeSureArchitecture()
         {
-            if(mArchitecture == null)
+            if (mArchitecture == null)
             {
                 mArchitecture = new T();
                 mArchitecture.Init();
@@ -86,9 +86,9 @@ namespace FrameworkDesign
             {
                 model.Init();
             }
-            
-        } 
-        public T GetUtility<T>() where T : class,IUtility
+
+        }
+        public T GetUtility<T>() where T : class, IUtility
         {
             return mContainer.Get<T>();
         }
@@ -155,6 +155,12 @@ namespace FrameworkDesign
         public void UnRegisterEvent<T>(Action<T> onEvent)
         {
             mTypeEventSystem.UnRegister<T>(onEvent);
+        }
+
+        public TResult SendQuery<TResult>(IQuery<TResult> query)
+        {
+            query.SetArchitecture(this);
+            return query.Do();
         }
     }
 }

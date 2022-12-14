@@ -8,11 +8,13 @@ namespace ShootingEditor2D
         private void Awake()
         {
             mRigidbody2D = GetComponent<Rigidbody2D>();
+            Destroy(gameObject, 5f);
         }
         // Use this for initialization
         void Start()
         {
-            mRigidbody2D.velocity = Vector2.right * 10;
+            var isRight = Mathf.Sign(transform.lossyScale.x);
+            mRigidbody2D.velocity = Vector2.right * 10 * isRight;
         }
 
         void OnCollisionEnter2D(Collision2D other)
@@ -21,6 +23,7 @@ namespace ShootingEditor2D
             {
                 this.SendCommand<KillEnemyCommand>();
                 Destroy(other.gameObject);
+                Destroy(gameObject);
             }
         }
 

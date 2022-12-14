@@ -1,10 +1,10 @@
 using System;
-namespace FrameworkDesign 
+namespace FrameworkDesign
 {
-    public class BindableProperty<T> where T : IEquatable<T>
+    public class BindableProperty<T>
     {
         private T mValue = default(T);
-        public T Value 
+        public T Value
         {
             get
             {
@@ -34,7 +34,7 @@ namespace FrameworkDesign
             mOnValueChanged -= onValueChanged;
         }
     }
-    public class BindablePropertyUnRegister<T> : IUnRegister where T : IEquatable<T>
+    public class BindablePropertyUnRegister<T> : IUnRegister
     {
         public BindableProperty<T> BindableProperty { get; set; }
         public Action<T> OnValueChanged { get; set; }

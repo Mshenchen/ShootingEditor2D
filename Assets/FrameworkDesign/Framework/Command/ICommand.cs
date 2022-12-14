@@ -1,6 +1,6 @@
 namespace FrameworkDesign
 {
-    public interface ICommand:IBelongToArchitecture,ICanSetArchitecture,ICanGetSystem,ICanGetModel,ICanGetUtility,ICanSendEvent,ICanSendCommand
+    public interface ICommand : IBelongToArchitecture, ICanSetArchitecture, ICanGetSystem, ICanGetModel, ICanGetUtility, ICanSendEvent, ICanSendCommand, ICanSendQuery
     {
         void Execute();
     }

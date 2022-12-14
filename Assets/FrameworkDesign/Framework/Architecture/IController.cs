@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace FrameworkDesign
 {
-    public interface IController : IBelongToArchitecture,ICanSendCommand,ICanGetSystem,ICanGetModel,ICanRegisterEvent
+    public interface IController : IBelongToArchitecture, ICanSendCommand, ICanGetSystem, ICanGetModel, ICanRegisterEvent, ICanSendQuery
     {
-       
+
     }
 }
 
