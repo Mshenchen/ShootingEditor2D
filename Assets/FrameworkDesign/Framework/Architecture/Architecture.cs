@@ -24,7 +24,7 @@ namespace FrameworkDesign
     public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
     {
         /// <summary>
-        /// 是否初始化完成
+        /// ??????????
         /// </summary>
         private bool mInited = false;
         private List<ISystem> mSystems = new List<ISystem>();

@@ -5,7 +5,7 @@ using FrameworkDesign;
 
 namespace ShootingEditor2D
 {
-    public class UIController : MonoBehaviour, IController
+    public class UIController : ShootingEditor2DController
     {
         private IPlayerModel mPlayerModel;
         private IStatSystem mStatSystem;
@@ -18,6 +18,10 @@ namespace ShootingEditor2D
             mGunSystem = this.GetSystem<IGunSystem>();
             //查询
             mMaxBulletCount = this.SendQuery(new MaxBulletCountQuery(mGunSystem.CurrentGun.Name.Value));
+            this.RegisterEvent<OnCurrentGunChanged>(e =>
+            {
+                mMaxBulletCount = this.SendQuery(new MaxBulletCountQuery(mGunSystem.CurrentGun.Name.Value));
+            }).UnRegisterWhenGameObjectDestoryed(gameObject);
         }
 
         private readonly Lazy<GUIStyle> mLabelStyle = new Lazy<GUIStyle>(() => new GUIStyle(GUI.skin.label)
@@ -39,10 +43,6 @@ namespace ShootingEditor2D
             mPlayerModel = null;
             mStatSystem = null;
             mGunSystem = null;
-        }
-        public IArchitecture GetArchitecture()
-        {
-            return ShootingEditor2D.Interface;
         }
     }
 }
